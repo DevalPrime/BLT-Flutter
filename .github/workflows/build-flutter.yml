@@ -11,6 +11,9 @@ concurrency:
   group: flutter-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  FLUTTER_VERSION: "3.24.5"
+
 jobs:
   ci-check:
     name: CI Validation
@@ -22,8 +25,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - run: flutter pub get
+      - run: flutter gen-l10n
       - run: flutter analyze
       - run: flutter test
       
@@ -42,8 +47,10 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           architecture: x64
       - run: flutter pub get
+      - run: flutter gen-l10n
       - name: Build APK
         run: flutter build apk
 
@@ -66,6 +73,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           architecture: x64
 
       - name: Clean the build environment
@@ -73,6 +81,7 @@ jobs:
 
       - name: Get Flutter dependencies
         run: flutter pub get
+      - run: flutter gen-l10n
 
       - name: Install CocoaPods dependencies
         run: |
@@ -109,6 +118,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           architecture: x64
 
       - name: Clean the build environment
@@ -116,6 +126,7 @@ jobs:
 
       - name: Get Flutter dependencies
         run: flutter pub get
+      - run: flutter gen-l10n
 
       - name: Install Linux dependencies
         run: |
@@ -143,6 +154,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           architecture: x64
 
       - name: Clean the build environment
@@ -150,6 +162,7 @@ jobs:
 
       - name: Get Flutter dependencies
         run: flutter pub get
+      - run: flutter gen-l10n
 
       - name: Install Windows dependencies
         run: |
